@@ -24,9 +24,16 @@
   --color-destructive-foreground: var(--destructive-foreground);
 
   --color-success: var(--success);
+  --color-success-text: var(--success-text);
+
   --color-warning: var(--warning);
+  --color-warning-text: var(--warning-text);
+
   --color-info: var(--info);
+  --color-info-text: var(--info-text);
+
   --color-error: var(--error);
+  --color-error-text: var(--error-text);
 
   --color-ring: var(--ring);
 }

@@ -24,9 +24,16 @@
   --destructive-foreground: #fafafa;
 
   --success: #d1fae5;
+  --success-text: #065f46;
+
   --warning: #fef3c7;
+  --warning-text: #92400e;
+
   --info: #e0f2fe;
+  --info-text: #075985;
+
   --error: #fee2e2;
+  --error-text: #991b1b;
 
   --ring: #3b82f6;
 }
