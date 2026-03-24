@@ -1,20 +1,17 @@
+import { useLogin } from "@/modules/auth/hooks";
 import { LogIn } from "lucide-react";
 import { type SyntheticEvent, useEffect, useState } from "react";
-import { Button } from "../../../../shared/components/Button";
-import { InputField } from "../../../../shared/components/InputField";
+import { Button } from "@/shared/components/Button";
+import { InputField } from "@/shared/components/InputField";
 
 export function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { login, loading } = useLogin();
 
   const handleLogin = async (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
+    await login(email, password);
   };
 
   useEffect(() => {
@@ -38,8 +35,8 @@ export function AuthPage() {
           />
 
           <InputField
-            placeholder={"Senha"}
-            label={"Senha"}
+            placeholder={"Password"}
+            label={"Password"}
             showLabel={false}
             type={"password"}
             value={password}
@@ -53,10 +50,10 @@ export function AuthPage() {
             type={"submit"}
             isLoading={loading}
             disabled={loading}
-            loadingText={"Entrando"}
+            loadingText={"Signing in"}
             rightAddon={<LogIn size={20} />}
           >
-            Entrar
+            Sign In
           </Button>
         </form>
       </div>
