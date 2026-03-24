@@ -1,31 +1,32 @@
 :root {
-  --background: 255 255 255;
-  --foreground: 15 23 42;
+  --background: #eff6ff;
+  --foreground: #0f172a;
 
-  --card: 255 255 255;
-  --card-foreground: 15 23 42;
+  --card: #fafafa;
+  --card-foreground: #0f172a;
 
-  --muted: 241 245 249;
-  --muted-foreground: 100 116 139;
+  --muted: #eff6ff;
+  --muted-foreground: #64748b;
 
-  --border: 226 232 240;
-  --input: 226 232 240;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
 
-  --primary: 59 130 246;
-  --primary-foreground: 255 255 255;
+  --primary: #3b82f6;
+  --primary-foreground: #fafafa;
 
-  --secondary: 248 250 252;
-  --secondary-foreground: 15 23 42;
+  --secondary: #dbeafe;
+  --secondary-foreground: #172554;
 
-  --accent: 239 246 255;
-  --accent-foreground: 30 64 175;
+  --accent: #eff6ff;
+  --accent-foreground: #1e40af;
 
-  --destructive: 239 68 68;
-  --destructive-foreground: 255 255 255;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
 
-  --success: 34 197 94;
-  --warning: 234 179 8;
-  --info: 59 130 246;
+  --success: #d1fae5;
+  --warning: #fef3c7;
+  --info: #e0f2fe;
+  --error: #fee2e2;
 
-  --ring: 59 130 246;
+  --ring: #3b82f6;
 }
