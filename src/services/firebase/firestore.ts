@@ -17,7 +17,7 @@ export async function getCollection(collectionName: string) {
   }));
 }
 
-export async function getDocument(collectionName: string, id: string) {
+export async function getDocument<Document>(collectionName: string, id: string): Promise<Document | null> {
   const ref = doc(db, collectionName, id);
   const snapshot = await getDoc(ref);
 
@@ -26,7 +26,7 @@ export async function getDocument(collectionName: string, id: string) {
   return {
     id: snapshot.id,
     ...snapshot.data(),
-  };
+  } as Document;
 }
 
 export async function updateDocument(collectionName: string, id: string, data: never) {
