@@ -24,7 +24,7 @@ export function AuthPage() {
   return (
     <main className="bg-background min-h-screen px-4">
       <div className="container mx-auto flex h-screen max-w-4xl flex-col items-center justify-center gap-2">
-        <img src="/favicon.svg" alt="Henna Software logo icon" className="size-32 opacity-70" />
+        <img src="/favicon.svg" alt="Henna Software logo icon" className="size-32 opacity-80" />
 
         <form onSubmit={handleLogin} className="bg-card flex w-full max-w-md flex-col gap-4 rounded-lg p-6 shadow-lg">
           <InputField
@@ -47,7 +47,7 @@ export function AuthPage() {
             required={true}
           />
 
-          <hr className="border opacity-10" />
+          <hr className="border-card-foreground border opacity-5" />
 
           <Button
             type={"submit"}
