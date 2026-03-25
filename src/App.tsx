@@ -1,12 +1,15 @@
 import { AuthProvider } from "@/modules/auth/components";
+import { AppRoute } from "@/router";
 import { ToastProvider } from "@/shared/components/Toast";
-import { AuthPage } from "@/modules/auth/pages";
+import { BrowserRouter } from "react-router-dom";
 
 export default function App() {
   return (
     <ToastProvider>
       <AuthProvider>
-        <AuthPage />
+        <BrowserRouter>
+          <AppRoute />
+        </BrowserRouter>
       </AuthProvider>
     </ToastProvider>
   );

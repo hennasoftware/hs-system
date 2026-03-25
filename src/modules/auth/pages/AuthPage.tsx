@@ -3,15 +3,20 @@ import { LogIn } from "lucide-react";
 import { type SyntheticEvent, useEffect, useState } from "react";
 import { Button } from "@/shared/components/Button";
 import { InputField } from "@/shared/components/InputField";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, loading } = useLogin();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from.pathname || "/";
 
   const handleLogin = async (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     await login(email, password);
+    navigate(from, { replace: true });
   };
 
   useEffect(() => {
