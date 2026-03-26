@@ -1,3 +1,6 @@
+import { ClientsPage } from "@/modules/clients/pages";
+import { OrdersPage } from "@/modules/orders/pages";
+import { ServicesPage } from "@/modules/services/pages";
 import { NotFoundPage } from "@/shared/pages";
 import { Routes, Route } from "react-router-dom";
 import { AuthPage } from "@/modules/auth/pages";
@@ -25,6 +28,33 @@ export function AppRoute() {
         element={
           <ProtectedRoute>
             <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/orders"
+        element={
+          <ProtectedRoute>
+            <OrdersPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/clients"
+        element={
+          <ProtectedRoute>
+            <ClientsPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/services"
+        element={
+          <ProtectedRoute>
+            <ServicesPage />
           </ProtectedRoute>
         }
       />
