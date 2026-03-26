@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function useSidebar() {
+export function useToggleSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
