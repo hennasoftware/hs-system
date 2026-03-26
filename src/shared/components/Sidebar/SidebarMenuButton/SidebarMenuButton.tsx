@@ -1,7 +1,7 @@
 import { Menu } from "lucide-react";
-import { useSidebar } from "../Context/useSidebar";
+import { useSidebar } from "@/shared/hooks/useSidebar";
 
-export default function MenuButton() {
+export default function SidebarMenuButton() {
   const { toggleMobile, openMobile } = useSidebar();
 
   return (
