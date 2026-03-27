@@ -113,8 +113,8 @@ export default function OrdersChart() {
   return (
     <div className="bg-card border-border/60 w-full rounded-xl border p-3 shadow-sm sm:p-6">
       <div className="mb-3 flex items-center justify-between sm:mb-6">
-        <h3 className="text-sm font-semibold">Pedidos por mês</h3>
-        <span className="text-muted-foreground text-xs">últimos 6 meses</span>
+        <h3 className="text-sm font-semibold">Orders per Month</h3>
+        <span className="text-muted-foreground text-xs">last 12 months</span>
       </div>
 
       <div ref={chartRef} className="h-85 w-full min-w-0 sm:h-90" />
