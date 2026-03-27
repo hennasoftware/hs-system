@@ -36,8 +36,8 @@ export default function RecentOrders({ loading = false }: RecentOrdersProps) {
           </>
         ) : (
           <>
-            <h3 className="text-sm font-semibold md:text-base">Pedidos recentes</h3>
-            <span className="text-muted-foreground text-xs">últimos pedidos</span>
+            <h3 className="text-sm font-semibold md:text-base">Recent Orders</h3>
+            <span className="text-muted-foreground text-xs">latest orders</span>
           </>
         )}
       </div>
