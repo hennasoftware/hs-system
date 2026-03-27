@@ -1,10 +1,47 @@
-import { useAuth } from "@/modules/auth/hooks";
-import { getPageTitle } from "@/shared/utils";
 import { Helmet } from "react-helmet-async";
-import { SidebarMenu } from "@/shared/components/Sidebar";
+import { FileText, Clock, CheckCircle, DollarSign } from "lucide-react";
+
+import { SidebarMenu } from "@/shared/components/Sidebar/SidebarMenu/SidebarMenu";
+import { getPageTitle } from "@/shared/utils";
+
+import DashboardHeader from "../components/DashboardHeader";
+import StatsCard from "../components/StatsCard";
+import StatsGrid from "../components/StatsGrid";
+import StatsSkeleton from "../skeleton/StatsSkeleton";
+import OrdersChart from "../components/OrdersChart";
+import RecentOrders from "../components/RecentOrders";
+
+import { useDashboardData } from "../hooks/useDashboardData";
 
 export function DashboardPage() {
-  const { user } = useAuth();
+  const { stats, loading } = useDashboardData();
+
+  const statsCards = stats
+    ? [
+        {
+          title: "Total Orders",
+          value: stats.totalOrders,
+          growth: "+12%",
+          icon: <FileText size={18} />,
+        },
+        {
+          title: "In progress",
+          value: stats.inProgress,
+          icon: <Clock size={18} />,
+        },
+        {
+          title: "Completed",
+          value: stats.completed,
+          icon: <CheckCircle size={18} />,
+        },
+        {
+          title: "Revenue",
+          value: `R$ ${stats.revenue}`,
+          growth: "+15%",
+          icon: <DollarSign size={18} />,
+        },
+      ]
+    : [];
 
   return (
     <>
@@ -13,18 +50,36 @@ export function DashboardPage() {
       </Helmet>
 
       <SidebarMenu>
-        <main className="bg-background flex min-h-screen flex-col items-center justify-center px-6 text-center lg:px-8">
-          <p className="text-primary text-base font-semibold">
-            Hello, {user?.firstName} {user?.lastName}!
-          </p>
+        <main className="mt-14 min-h-screen md:mt-0 md:p-6">
+          <div className="mx-auto w-full space-y-10 md:space-y-16">
+            <DashboardHeader />
 
-          <h1 className="text-foreground mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
-            Dashboard
-          </h1>
+            <StatsGrid>
+              {loading
+                ? Array.from({ length: 4 }).map((_, index) => <StatsSkeleton key={index} />)
+                : statsCards.map((card) => (
+                    <StatsCard
+                      key={card.title}
+                      title={card.title}
+                      value={card.value}
+                      growth={card.growth}
+                      icon={card.icon}
+                    />
+                  ))}
+            </StatsGrid>
 
-          <p className="text-muted-foreground mt-6 text-lg font-medium text-pretty sm:text-xl/8">
-            There's nothing here yet.
-          </p>
+            <section className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+              <div className="min-w-0 xl:col-span-2">
+                {loading ? (
+                  <div className="bg-card border-border/60 h-85 animate-pulse rounded-xl border" />
+                ) : (
+                  <OrdersChart />
+                )}
+              </div>
+
+              <RecentOrders loading={loading} />
+            </section>
+          </div>
         </main>
       </SidebarMenu>
     </>
