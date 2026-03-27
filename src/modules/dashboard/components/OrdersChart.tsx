@@ -8,17 +8,17 @@ type ChartData = {
 
 const data: ChartData[] = [
   { month: "Jan", orders: 12 },
-  { month: "Fev", orders: 15 },
+  { month: "Feb", orders: 15 },
   { month: "Mar", orders: 18 },
-  { month: "Abr", orders: 22 },
-  { month: "Mai", orders: 28 },
+  { month: "Apr", orders: 22 },
+  { month: "May", orders: 28 },
   { month: "Jun", orders: 25 },
   { month: "Jul", orders: 30 },
-  { month: "Ago", orders: 34 },
-  { month: "Set", orders: 29 },
-  { month: "Out", orders: 36 },
+  { month: "Aug", orders: 34 },
+  { month: "Sep", orders: 29 },
+  { month: "Oct", orders: 36 },
   { month: "Nov", orders: 41 },
-  { month: "Dez", orders: 48 },
+  { month: "Dec", orders: 48 },
 ];
 
 export default function OrdersChart() {
