@@ -5,8 +5,7 @@ import { SidebarMenu } from "@/shared/components/Sidebar/SidebarMenu/SidebarMenu
 import { getPageTitle } from "@/shared/utils";
 
 import DashboardHeader from "../components/DashboardHeader";
-import StatsCard from "../components/StatsCard";
-import StatsGrid from "../components/StatsGrid";
+import { Card } from "@/shared/components/Card";
 import StatsSkeleton from "../skeleton/StatsSkeleton";
 import OrdersChart from "../components/OrdersChart";
 import RecentOrders from "../components/RecentOrders";
@@ -32,12 +31,13 @@ export function DashboardPage() {
         {
           title: "Completed",
           value: stats.completed,
+          growth: "0%",
           icon: <CheckCircle size={18} />,
         },
         {
           title: "Revenue",
           value: `R$ ${stats.revenue}`,
-          growth: "+15%",
+          growth: "-15%",
           icon: <DollarSign size={18} />,
         },
       ]
@@ -54,11 +54,11 @@ export function DashboardPage() {
           <div className="mx-auto w-full space-y-10 md:space-y-16">
             <DashboardHeader />
 
-            <StatsGrid>
+            <div className="grid min-w-0 grid-cols-1 gap-6 *:min-w-0 sm:grid-cols-2 xl:grid-cols-4">
               {loading
                 ? Array.from({ length: 4 }).map((_, index) => <StatsSkeleton key={index} />)
                 : statsCards.map((card) => (
-                    <StatsCard
+                    <Card
                       key={card.title}
                       title={card.title}
                       value={card.value}
@@ -66,7 +66,7 @@ export function DashboardPage() {
                       icon={card.icon}
                     />
                   ))}
-            </StatsGrid>
+            </div>
 
             <section className="grid grid-cols-1 gap-6 xl:grid-cols-3">
               <div className="min-w-0 xl:col-span-2">
