@@ -4,8 +4,9 @@
 
   --card: #fafafa;
   --card-foreground: #0f172a;
+  --card-hover: #eef1f5;
 
-  --muted: #eff6ff;
+  --muted: #e2e8f0;
   --muted-foreground: #64748b;
 
   --border: #e2e8f0;
@@ -13,6 +14,7 @@
 
   --primary: #3b82f6;
   --primary-foreground: #fafafa;
+  --primary-hover: #60a5fa;
 
   --secondary: #dbeafe;
   --secondary-foreground: #172554;
@@ -22,6 +24,7 @@
 
   --destructive: #ef4444;
   --destructive-foreground: #fafafa;
+  --destructive-hover: #f87171;
 
   --success: #d1fae5;
   --success-text: #065f46;
