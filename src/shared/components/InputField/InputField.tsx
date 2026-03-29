@@ -18,7 +18,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         </label>
 
         <div className="relative flex items-center">
-          {leftAddon && <span className="pointer-events-none absolute left-3 text-gray-400">{leftAddon}</span>}
+          {leftAddon && <span className="text-foreground/30 pointer-events-none absolute left-3">{leftAddon}</span>}
 
           <input
             ref={ref}
@@ -30,7 +30,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             {...rest}
           />
 
-          {rightAddon && <span className="pointer-events-none absolute right-3 text-gray-400">{rightAddon}</span>}
+          {rightAddon && <span className="text-foreground/30 pointer-events-none absolute right-3">{rightAddon}</span>}
         </div>
 
         {hasError && (
