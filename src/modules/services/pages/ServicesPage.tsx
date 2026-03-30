@@ -1,10 +1,23 @@
-import { useAuth } from "@/modules/auth/hooks";
+import { Button } from "@/shared/components/Button";
+import { PenBox, Plus, Trash } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import type { Service } from "../types";
+import { Table } from "@/shared/components/Table";
 import { getPageTitle } from "@/shared/utils";
 import { Helmet } from "react-helmet-async";
 import { SidebarMenu } from "@/shared/components/Sidebar";
 
+const services: Service[] = [
+  // TODO: Implement function to gather "services" from database
+];
+
 export function ServicesPage() {
-  const { user } = useAuth();
+  const navigate = useNavigate();
+  const tableCols = [
+    { key: "name", header: "Service", accessor: (s: Service) => s.name, sortable: true },
+    { key: "description", header: "Description", accessor: (s: Service) => s.description },
+    { key: "createdAt", header: "Created At", accessor: (s: Service) => s.createdAt, sortable: true },
+  ];
 
   return (
     <>
@@ -13,18 +26,59 @@ export function ServicesPage() {
       </Helmet>
 
       <SidebarMenu>
-        <main className="bg-background flex min-h-screen flex-col items-center justify-center px-6 text-center lg:px-8">
-          <p className="text-primary text-base font-semibold">
-            Hello, {user?.firstName} {user?.lastName}!
-          </p>
+        <main className="min-h-screen">
+          <div className="mx-auto w-full">
+            <div className="mb-12">
+              <h1 className="text-2xl font-semibold tracking-tight">Services</h1>
 
-          <h1 className="text-foreground mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
-            Services
-          </h1>
+              <p className="text-muted-foreground text-sm">
+                Organize the services you offer. Add new services, update details, or remove outdated entries to keep
+                your catalog accurate.
+              </p>
+            </div>
 
-          <p className="text-muted-foreground mt-6 text-lg font-medium text-pretty sm:text-xl/8">
-            There's nothing here yet.
-          </p>
+            <div className="mb-6 flex w-full items-center justify-end">
+              <div className="max-w-40">
+                <Button
+                  type={"button"}
+                  leftAddon={<Plus size={20} />}
+                  onClick={() => navigate("/services/new")}
+                  // TODO: implement "/services/new" route to add new services
+                >
+                  New Service
+                </Button>
+              </div>
+            </div>
+
+            <Table<Service>
+              columns={tableCols}
+              data={services}
+              context={"services"}
+              searchable
+              defaultPageSize={10}
+              actions={(service) => (
+                <div className="flex gap-2">
+                  <button
+                    className="text-primary hover:text-primary-hover hover:cursor-pointer"
+                    onClick={() => navigate("/services/s/:id")}
+                    // TODO: implement "/services/s/:id" route to edit services
+                  >
+                    <PenBox size={16} />
+                  </button>
+
+                  <button
+                    className="text-destructive hover:text-destructive-hover hover:cursor-pointer"
+                    onClick={() => {
+                      console.log("Delete", service.id);
+                    }}
+                    // TODO: implement "Delete service" function to delete services
+                  >
+                    <Trash size={16} />
+                  </button>
+                </div>
+              )}
+            />
+          </div>
         </main>
       </SidebarMenu>
     </>
