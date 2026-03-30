@@ -1,12 +1,9 @@
-import { SidebarProvider } from "@/shared/components/Sidebar/SidebarProvider/SidebarProvider";
-import SidebarLayout from "../SidebarLayout/SidebarLayout.tsx";
-import SidebarMenuButton from "@/shared/components/Sidebar/SidebarMenuButton/SidebarMenuButton";
+import type { SidebarMenuProps } from "./SidebarMenu.types";
+import { SidebarProvider } from "../SidebarProvider";
+import { SidebarLayout } from "../SidebarLayout";
+import { SidebarMenuButton } from "../SidebarMenuButton";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-export function SidebarMenu({ children }: Props) {
+export function SidebarMenu({ children }: SidebarMenuProps) {
   return (
     <SidebarProvider>
       <div className="bg-background text-foreground flex h-screen">
