@@ -6,9 +6,9 @@ const defaultClasses = clsx(
 );
 
 const variantClasses = {
-  primary: "bg-primary text-primary-foreground hover:bg-primary/80",
-  secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/70",
-  danger: "bg-destructive text-destructive-foreground hover:bg-destructive/80",
+  primary: "bg-primary text-primary-foreground hover:bg-primary-hover",
+  secondary: "bg-secondary text-secondary-foreground hover:bg-secondary-hover",
+  danger: "bg-destructive text-destructive-foreground hover:bg-destructive-hover",
 };
 
 const disabledClasses = "cursor-not-allowed opacity-50";
