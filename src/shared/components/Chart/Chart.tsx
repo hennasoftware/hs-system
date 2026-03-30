@@ -1,29 +1,13 @@
+import type { ChartProps } from "./Chart.types";
 import { useEffect, useRef } from "react";
 import * as echarts from "echarts";
 
-type ChartData = {
-  month: string;
-  orders: number;
-};
-
-const data: ChartData[] = [
-  { month: "Jan", orders: 12 },
-  { month: "Feb", orders: 15 },
-  { month: "Mar", orders: 18 },
-  { month: "Apr", orders: 22 },
-  { month: "May", orders: 28 },
-  { month: "Jun", orders: 25 },
-  { month: "Jul", orders: 30 },
-  { month: "Aug", orders: 34 },
-  { month: "Sep", orders: 29 },
-  { month: "Oct", orders: 36 },
-  { month: "Nov", orders: 41 },
-  { month: "Dec", orders: 48 },
-];
-
-export default function OrdersChart() {
+export function Chart({ title, description, data }: ChartProps) {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const chartInstance = useRef<echarts.ECharts | null>(null);
+  const theme = localStorage.getItem("theme");
+  const chartLineColor =
+    theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "#334155" : "#cbd5e1";
 
   useEffect(() => {
     if (!chartRef.current) return;
@@ -43,14 +27,14 @@ export default function OrdersChart() {
 
       xAxis: {
         type: "category",
-        data: data.map((d) => d.month),
+        data: data.map((d) => d.xAxis),
         axisLine: { show: false },
         axisTick: { show: false },
         splitLine: {
           show: true,
           lineStyle: {
             type: "dashed",
-            color: "#e5e7eb",
+            color: chartLineColor,
           },
         },
       },
@@ -63,14 +47,14 @@ export default function OrdersChart() {
           show: true,
           lineStyle: {
             type: "dashed",
-            color: "#e5e7eb",
+            color: chartLineColor,
           },
         },
       },
 
       series: [
         {
-          data: data.map((d) => d.orders),
+          data: data.map((d) => d.yAxis),
           type: "line",
           smooth: true,
 
@@ -108,13 +92,13 @@ export default function OrdersChart() {
       resizeObserver.disconnect();
       chartInstance.current?.dispose();
     };
-  }, []);
+  }, [chartLineColor, data]);
 
   return (
-    <div className="bg-card border-border/60 w-full rounded-xl border p-3 shadow-sm sm:p-6">
+    <div className="bg-card border-border w-full rounded-xl border p-3 shadow-sm sm:p-6">
       <div className="mb-3 flex items-center justify-between sm:mb-6">
-        <h3 className="text-sm font-semibold">Orders per Month</h3>
-        <span className="text-muted-foreground text-xs">last 12 months</span>
+        <h3 className="text-sm font-semibold">{title}</h3>
+        <span className="text-muted-foreground text-xs">{description}</span>
       </div>
 
       <div ref={chartRef} className="h-85 w-full min-w-0 sm:h-90" />
