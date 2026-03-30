@@ -1,10 +1,23 @@
-import { useAuth } from "@/modules/auth/hooks";
+import { Button } from "@/shared/components/Button";
+import { PenBox, Plus, Trash } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import type { Client } from "../types";
+import { Table } from "@/shared/components/Table";
 import { getPageTitle } from "@/shared/utils";
 import { Helmet } from "react-helmet-async";
 import { SidebarMenu } from "@/shared/components/Sidebar";
 
+const clients: Client[] = [
+  // TODO: Implement function to gather "clients" from database
+];
+
 export function ClientsPage() {
-  const { user } = useAuth();
+  const navigate = useNavigate();
+  const tableCols = [
+    { key: "name", header: "Name", accessor: (c: Client) => `${c.firstName} ${c.lastName}`, sortable: true },
+    { key: "email", header: "Email", accessor: (c: Client) => c.email ?? "—" },
+    { key: "createdAt", header: "Created At", accessor: (c: Client) => c.createdAt, sortable: true },
+  ];
 
   return (
     <>
@@ -13,18 +26,59 @@ export function ClientsPage() {
       </Helmet>
 
       <SidebarMenu>
-        <main className="bg-background flex min-h-screen flex-col items-center justify-center px-6 text-center lg:px-8">
-          <p className="text-primary text-base font-semibold">
-            Hello, {user?.firstName} {user?.lastName}!
-          </p>
+        <main className="min-h-screen">
+          <div className="mx-auto w-full">
+            <div className="mb-12">
+              <h1 className="text-2xl font-semibold tracking-tight">Clients</h1>
 
-          <h1 className="text-foreground mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
-            Clients
-          </h1>
+              <p className="text-muted-foreground text-sm">
+                Manage your client base in one place. View all registered clients, create new records, and update or
+                remove existing information as needed.
+              </p>
+            </div>
 
-          <p className="text-muted-foreground mt-6 text-lg font-medium text-pretty sm:text-xl/8">
-            There's nothing here yet.
-          </p>
+            <div className="mb-6 flex w-full items-center justify-end">
+              <div className="max-w-40">
+                <Button
+                  type={"button"}
+                  leftAddon={<Plus size={20} />}
+                  onClick={() => navigate("/clients/new")}
+                  // TODO: implement "/clients/new" route to add new clients
+                >
+                  New Client
+                </Button>
+              </div>
+            </div>
+
+            <Table<Client>
+              columns={tableCols}
+              data={clients}
+              context={"clients"}
+              searchable
+              defaultPageSize={10}
+              actions={(client) => (
+                <div className="flex gap-2">
+                  <button
+                    className="text-primary hover:text-primary-hover hover:cursor-pointer"
+                    onClick={() => navigate("/clients/c/:id")}
+                    // TODO: implement "/clients/c/:id" route to edit new clients
+                  >
+                    <PenBox size={16} />
+                  </button>
+
+                  <button
+                    className="text-destructive hover:text-destructive-hover hover:cursor-pointer"
+                    onClick={() => {
+                      console.log("Delete", client.firstName);
+                    }}
+                    // TODO: implement "Delete client" function to delete clients
+                  >
+                    <Trash size={16} />
+                  </button>
+                </div>
+              )}
+            />
+          </div>
         </main>
       </SidebarMenu>
     </>
