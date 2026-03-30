@@ -1,11 +1,11 @@
 import { useLogout } from "@/modules/auth/hooks";
 import { ChevronLeft, X, LogOut } from "lucide-react";
 import { sidebarItems } from "@/config/sidebarItems";
-import SidebarItem from "../SidebarItem/SidebarItem.tsx";
+import { SidebarItem } from "../SidebarItem";
 import { useSidebar } from "@/shared/hooks/useSidebar.ts";
-import { Button } from "../../Button";
+import { Button } from "@/shared/components/Button";
 
-export default function SidebarLayout() {
+export function SidebarLayout() {
   const { collapsed, openMobile, toggleCollapse, closeMobile } = useSidebar();
   const { logout } = useLogout();
 
@@ -39,7 +39,7 @@ export default function SidebarLayout() {
           >
             <ChevronLeft
               size={18}
-              className={`text-muted-foreground transiton-all hover:text-foreground duration-300 hover:cursor-pointer ${collapsed ? "rotate-180" : ""}`}
+              className={`text-muted-foreground hover:text-foreground transition-all duration-300 hover:cursor-pointer ${collapsed ? "rotate-180" : ""}`}
             />
           </Button>
 

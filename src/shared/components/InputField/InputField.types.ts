@@ -5,6 +5,7 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   showLabel?: boolean;
   helperText?: string;
   errorMessage?: string;
+  bgTransparent?: boolean;
   leftAddon?: ReactNode;
   rightAddon?: ReactNode;
 }

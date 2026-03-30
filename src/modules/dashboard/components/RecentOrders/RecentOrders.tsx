@@ -1,31 +1,13 @@
-type OrderStatus = "Delivered" | "Production" | "Payment" | "Review";
+import type { RecentOrdersProps } from "./RecentOrder.types";
 
-type Order = {
-  id: string;
-  title: string;
-  client: string;
-  status: OrderStatus;
+const statusStyles = {
+  delivered: "bg-emerald-500/15 text-emerald-600",
+  production: "bg-blue-500/15 text-blue-600",
+  payment: "bg-amber-500/15 text-amber-600",
+  review: "bg-purple-500/15 text-purple-600",
 };
 
-type RecentOrdersProps = {
-  loading?: boolean;
-};
-
-const orders: Order[] = [
-  { id: "1", title: "TCC - Administração", client: "Ana Silva", status: "Delivered" },
-  { id: "2", title: "Artigo Científico", client: "Carlos Souza", status: "Production" },
-  { id: "3", title: "Monografia - Direito", client: "Marina Costa", status: "Payment" },
-  { id: "4", title: "Revisão de Texto", client: "João Pereira", status: "Review" },
-];
-
-const statusStyles: Record<OrderStatus, string> = {
-  Delivered: "bg-emerald-500/15 text-emerald-600",
-  Production: "bg-blue-500/15 text-blue-600",
-  Payment: "bg-amber-500/15 text-amber-600",
-  Review: "bg-purple-500/15 text-purple-600",
-};
-
-export default function RecentOrders({ loading = false }: RecentOrdersProps) {
+export function RecentOrders({ loading = false, orders }: RecentOrdersProps) {
   return (
     <div className="bg-card border-border/60 flex flex-col rounded-xl border p-4 shadow-sm md:p-6">
       <div className="mb-4 flex items-center justify-between md:mb-5">
@@ -37,7 +19,7 @@ export default function RecentOrders({ loading = false }: RecentOrdersProps) {
         ) : (
           <>
             <h3 className="text-sm font-semibold md:text-base">Recent Orders</h3>
-            <span className="text-muted-foreground text-xs">latest orders</span>
+            <span className="text-muted-foreground text-xs">Latest orders</span>
           </>
         )}
       </div>
@@ -66,7 +48,7 @@ export default function RecentOrders({ loading = false }: RecentOrdersProps) {
                   </div>
                 </div>
 
-                <span className={`rounded-md px-2.5 py-1 text-xs font-medium ${statusStyles[order.status]}`}>
+                <span className={`rounded-md px-2.5 py-1 text-xs font-medium capitalize ${statusStyles[order.status]}`}>
                   {order.status}
                 </span>
               </div>

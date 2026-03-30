@@ -1,6 +1,8 @@
 .dark {
   --background: #020617;
+  --background-hover: #0f172a;
   --foreground: #f8fafc;
+  --placeholder: #334155;
 
   --card: #0f172a;
   --card-foreground: #f8fafc;
@@ -18,6 +20,7 @@
 
   --secondary: #1e293b;
   --secondary-foreground: #f8fafc;
+  --secondary-hover: #0f172a;
 
   --accent: #1e3a8a;
   --accent-foreground: #bfdbfe;
@@ -26,17 +29,23 @@
   --destructive-foreground: #fafafa;
   --destructive-hover: #b91c1c;
 
-  --success: #d1fae5;
-  --success-text: #065f46;
+  --success: #065f46;
+  --success-text: #bbf7d0;
 
-  --warning: #fef3c7;
-  --warning-text: #92400e;
+  --warning: #a16207;
+  --warning-text: #fef08a;
 
-  --info: #e0f2fe;
-  --info-text: #075985;
+  --info: #0369a1;
+  --info-text: #bae6fd;
 
-  --error: #fee2e2;
-  --error-text: #991b1b;
+  --error: #b91c1c;
+  --error-text: #fecaca;
 
   --ring: #3b82f6;
+
+  --status-green: #bbf7d0;
+  --status-green-text: #15803d;
+
+  --status-red: #fecaca;
+  --status-red-text: #b91c1c;
 }

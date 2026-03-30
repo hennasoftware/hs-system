@@ -1,6 +1,8 @@
 :root {
   --background: #eff6ff;
+  --background-hover: #dbeafe;
   --foreground: #0f172a;
+  --placeholder: #cbd5e1;
 
   --card: #fafafa;
   --card-foreground: #0f172a;
@@ -18,6 +20,7 @@
 
   --secondary: #dbeafe;
   --secondary-foreground: #172554;
+  --secondary-hover: #bfdbfe;
 
   --accent: #eff6ff;
   --accent-foreground: #1e40af;
@@ -26,11 +29,11 @@
   --destructive-foreground: #fafafa;
   --destructive-hover: #f87171;
 
-  --success: #d1fae5;
-  --success-text: #065f46;
+  --success: #dcfce7;
+  --success-text: #166534;
 
-  --warning: #fef3c7;
-  --warning-text: #92400e;
+  --warning: #fef9c3;
+  --warning-text: #854d0e;
 
   --info: #e0f2fe;
   --info-text: #075985;
@@ -39,4 +42,10 @@
   --error-text: #991b1b;
 
   --ring: #3b82f6;
+
+  --status-green: #dcfce7;
+  --status-green-text: #166534;
+
+  --status-red: #fee2e2;
+  --status-red-text: #991b1b;
 }

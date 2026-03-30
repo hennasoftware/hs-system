@@ -1,7 +1,7 @@
 export function NotFoundPage() {
   return (
     <main className="bg-background min-h-screen px-4">
-      <div className="container mx-auto flex h-screen max-w-4xl flex-col items-center justify-center gap-2">
+      <div className="container mx-auto flex h-screen max-w-4xl flex-col items-center justify-center gap-2 text-center">
         <p className="text-primary text-base font-semibold">404</p>
 
         <h1 className="text-foreground mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
@@ -22,7 +22,7 @@ export function NotFoundPage() {
 
           <a
             href="https://github.com/hennasoftware"
-            className="text-primary text-sm font-semibold transition-all hover:brightness-60"
+            className="text-primary hover:primary-hover text-sm font-semibold transition-all"
           >
             Contact support <span aria-hidden="true">&rarr;</span>
           </a>

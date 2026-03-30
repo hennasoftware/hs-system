@@ -1,13 +1,13 @@
 import clsx from "clsx";
 
 const defaultClasses = clsx(
-  "w-full appearance-none rounded border py-2 leading-tight shadow",
-  "transition-all focus:outline-none"
+  "w-full appearance-none rounded border py-2 leading-tight shadow-xs shadow-border",
+  "transition-all focus:outline-none bg-card"
 );
 
 const stateClasses = {
   default: clsx(
-    "border-input text-foreground placeholder:text-foreground/30",
+    "border-input text-foreground placeholder:text-placeholder",
     "focus:border-primary focus:ring focus:ring-ring"
   ),
   error: clsx(
@@ -18,9 +18,12 @@ const stateClasses = {
 
 const disabledClasses = "cursor-not-allowed opacity-50";
 
+const bgClass = "bg-card";
+
 export function getInputFieldClasses(
   hasError: boolean,
   disabled: boolean,
+  bgTransparent: boolean,
   hasLeftAddon: boolean,
   hasRightAddon: boolean
 ): string {
@@ -30,6 +33,7 @@ export function getInputFieldClasses(
     hasError && stateClasses["error"],
     hasLeftAddon ? "pl-10" : "pl-3",
     hasRightAddon ? "pr-10" : "pr-3",
-    disabled && disabledClasses
+    disabled && disabledClasses,
+    bgTransparent && bgClass
   );
 }

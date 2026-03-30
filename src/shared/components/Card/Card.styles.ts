@@ -25,5 +25,5 @@ export const iconStyles = {
   ghost: "bg-transparent text-muted-foreground",
 };
 
-export const growthPositive = "bg-emerald-500/10 text-emerald-500";
-export const growthNegative = "bg-red-500/10 text-red-500";
+export const growthPositive = "bg-status-green text-status-green-text";
+export const growthNegative = "bg-status-red text-status-red-text";

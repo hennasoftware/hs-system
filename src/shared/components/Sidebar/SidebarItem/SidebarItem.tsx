@@ -1,14 +1,7 @@
+import type { SidebarItemProps } from "./SidebarItem.types";
 import { NavLink } from "react-router-dom";
-import type { LucideIcon } from "lucide-react";
 
-interface Props {
-  icon: LucideIcon;
-  label: string;
-  path: string;
-  collapsed: boolean;
-}
-
-export default function SidebarItem({ icon: Icon, label, path, collapsed }: Props) {
+export function SidebarItem({ icon: Icon, label, path, collapsed }: SidebarItemProps) {
   return (
     <NavLink
       to={path}
@@ -16,8 +9,8 @@ export default function SidebarItem({ icon: Icon, label, path, collapsed }: Prop
       className={({ isActive }) =>
         `group relative flex items-center ${collapsed ? "justify-center" : "gap-3"} rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
           isActive
-            ? "bg-card-foreground/10 text-primary shadow-sm"
-            : "text-muted-foreground hover:bg-card-foreground/10 hover:text-foreground"
+            ? "bg-card-hover text-primary shadow-border shadow-xs"
+            : "text-muted-foreground hover:bg-card-hover hover:text-foreground"
         } `
       }
     >
