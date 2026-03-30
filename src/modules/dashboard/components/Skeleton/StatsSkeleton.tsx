@@ -1,4 +1,4 @@
-export default function StatsSkeleton() {
+export function StatsSkeleton() {
   return (
     <div className="bg-card border-border/60 animate-pulse rounded-xl border p-5">
       <div className="flex items-start justify-between">
