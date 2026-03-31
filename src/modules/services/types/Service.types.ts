@@ -3,7 +3,6 @@ export interface Service {
   name: string;
   description: string;
   shortDescription: string;
-  imageUrl: string;
   createdAt: string;
   updatedAt: string;
   price: string;
