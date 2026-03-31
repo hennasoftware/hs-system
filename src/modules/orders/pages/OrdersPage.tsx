@@ -26,26 +26,26 @@ export function OrdersPage() {
       </Helmet>
 
       <SidebarMenu>
-        <main className="min-h-screen">
+        <main className="pt-10 md:pt-0">
           <div className="mx-auto w-full">
-            <div className="mb-12">
-              <h1 className="text-2xl font-semibold tracking-tight">Orders</h1>
+            <div className="mb-12 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end md:gap-16">
+              <div className="flex flex-col gap-2">
+                <h1 className="text-2xl font-semibold tracking-tight">Orders</h1>
 
-              <p className="text-muted-foreground text-sm">
-                Track and manage all orders efficiently. Browse existing orders, create new ones, and edit or delete
-                records to keep everything up to date.
-              </p>
-            </div>
+                <p className="text-muted-foreground text-sm">
+                  Track and manage all orders efficiently. Browse existing orders, create new ones, and edit or delete
+                  records to keep everything up to date.
+                </p>
+              </div>
 
-            <div className="mb-6 flex w-full items-center justify-end">
-              <div className="max-w-40">
+              <div className="w-full md:max-w-40">
                 <Button
                   type={"button"}
                   leftAddon={<Plus size={20} />}
                   onClick={() => navigate("/orders/new")}
                   // TODO: implement "/orders/new" route to add new orders
                 >
-                  New Order
+                  New&nbsp;Order
                 </Button>
               </div>
             </div>
