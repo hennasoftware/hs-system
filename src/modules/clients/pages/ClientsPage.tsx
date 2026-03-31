@@ -16,6 +16,8 @@ export function ClientsPage() {
   const tableCols = [
     { key: "name", header: "Name", accessor: (c: Client) => `${c.firstName} ${c.lastName}`, sortable: true },
     { key: "email", header: "Email", accessor: (c: Client) => c.email ?? "—" },
+    { key: "phone", header: "Phone", accessor: (c: Client) => c.phone ?? "—" },
+    { key: "location", header: "Location", accessor: (c: Client) => `${c.city}, ${c.state}` },
     { key: "createdAt", header: "Created At", accessor: (c: Client) => c.createdAt, sortable: true },
   ];
 
@@ -26,26 +28,26 @@ export function ClientsPage() {
       </Helmet>
 
       <SidebarMenu>
-        <main className="min-h-screen">
+        <main className="pt-10 md:pt-0">
           <div className="mx-auto w-full">
-            <div className="mb-12">
-              <h1 className="text-2xl font-semibold tracking-tight">Clients</h1>
+            <div className="mb-12 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end md:gap-16">
+              <div className="flex flex-col gap-2">
+                <h1 className="text-2xl font-semibold tracking-tight">Clients</h1>
 
-              <p className="text-muted-foreground text-sm">
-                Manage your client base in one place. View all registered clients, create new records, and update or
-                remove existing information as needed.
-              </p>
-            </div>
+                <p className="text-muted-foreground text-sm">
+                  Manage your client base in one place. View all registered clients, create new records, and update or
+                  remove existing information as needed.
+                </p>
+              </div>
 
-            <div className="mb-6 flex w-full items-center justify-end">
-              <div className="max-w-40">
+              <div className="w-full md:max-w-40">
                 <Button
                   type={"button"}
                   leftAddon={<Plus size={20} />}
                   onClick={() => navigate("/clients/new")}
                   // TODO: implement "/clients/new" route to add new clients
                 >
-                  New Client
+                  New&nbsp;Client
                 </Button>
               </div>
             </div>

@@ -116,8 +116,8 @@ export function Table<T extends TableRow>(props: TableProps<T>) {
         <TableEmpty context={context} emptyState={emptyState} />
       ) : (
         <>
-          <div className="border-border bg-card overflow-x-auto rounded-md border-2">
-            <table className="divide-border min-w-full table-auto divide-y">
+          <div className="border-border bg-card relative overflow-x-auto rounded-md border-2">
+            <table className="divide-border w-full table-auto divide-y">
               <thead>
                 <tr>
                   {columns.map((col) => {
