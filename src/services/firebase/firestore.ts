@@ -4,7 +4,9 @@ import { db } from "./client";
 
 export async function createDocument(collectionName: string, data: never) {
   const ref = collection(db, collectionName);
-  return addDoc(ref, data);
+  const docRef = await addDoc(ref, data);
+  await updateDoc(docRef, { id: docRef.id });
+  return docRef;
 }
 
 export async function getCollection(collectionName: string) {

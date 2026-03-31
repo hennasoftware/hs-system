@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 const defaultClasses = clsx(
   "appearance-none rounded border py-2 leading-tight shadow-xs shadow-border",
-  "transition-all focus:outline-none"
+  "w-full transition-all focus:outline-none"
 );
 
 const stateClasses = {
