@@ -69,7 +69,7 @@ export function DashboardPage() {
       </Helmet>
 
       <SidebarMenu>
-        <main className="min-h-screen">
+        <main className="pt-10 md:pt-0">
           <div className="mx-auto w-full">
             <div className="mb-12">
               <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
