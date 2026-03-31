@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
 const defaultClasses = clsx(
-  "w-full appearance-none rounded border py-2 leading-tight shadow-xs shadow-border",
-  "transition-all focus:outline-none bg-card"
+  "appearance-none rounded border py-2 leading-tight shadow-xs shadow-border",
+  "transition-all focus:outline-none"
 );
 
 const stateClasses = {
@@ -34,6 +34,6 @@ export function getInputFieldClasses(
     hasLeftAddon ? "pl-10" : "pl-3",
     hasRightAddon ? "pr-10" : "pr-3",
     disabled && disabledClasses,
-    bgTransparent && bgClass
+    !bgTransparent && bgClass
   );
 }
