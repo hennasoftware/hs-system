@@ -24,10 +24,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     return (
       <div>
-        <label
-          className={`text-foreground mb-1 block w-full text-left text-sm font-bold ${showLabel ? "" : "sr-only"}`}
-          htmlFor={id}
-        >
+        <label className={`text-foreground mb-1 block w-full text-left ${showLabel ? "" : "sr-only"}`} htmlFor={id}>
           {label}
         </label>
 
