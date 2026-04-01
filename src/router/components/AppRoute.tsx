@@ -1,4 +1,4 @@
-import { ClientsPage } from "@/modules/clients/pages";
+import { ClientsPage, NewClientPage } from "@/modules/clients/pages";
 import { OrdersPage } from "@/modules/orders/pages";
 import { NewServicePage, ServicesPage } from "@/modules/services/pages";
 import { NotFoundPage } from "@/shared/pages";
@@ -46,6 +46,15 @@ export function AppRoute() {
         element={
           <ProtectedRoute>
             <ClientsPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/clients/new"
+        element={
+          <ProtectedRoute>
+            <NewClientPage />
           </ProtectedRoute>
         }
       />
