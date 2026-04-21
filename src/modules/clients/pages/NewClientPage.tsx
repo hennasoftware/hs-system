@@ -8,24 +8,99 @@ import { createDocument } from "@/services/firebase/firestore";
 import { InputField } from "@/shared/components/InputField";
 import { Button } from "@/shared/components/Button";
 import { useNavigate } from "react-router-dom";
+import { fetchAddressByZip } from "@/shared/utils/fetchAddressByZip";
+import { validateClientForm } from "../validators/validateClientForm";
+import { formatTaxId } from "@/shared/utils/masks/formatTaxId.ts";
+import { formatZipCode } from "@/shared/utils/masks/formatZipCode.ts";
 
 export function NewClientPage() {
   const [form, setForm] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
-    company: "",
-    status: "active",
-    notes: "",
+    taxId: "",
+    birthDate: "",
+    gender: "",
+    city: "",
+    state: "",
+    address: "",
+    zipCode: "",
+    number: "",
   });
 
   const [loading, setLoading] = useState(false);
+  const [zipLoaded, setZipLoaded] = useState(false);
+  const [zipError, setZipError] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const { addToast } = useToast();
   const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    let newValue = value;
+
+    if (name === "taxId") {
+      newValue = formatTaxId(value);
+    }
+
+    if (name === "zipCode") {
+      setZipError("");
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: newValue,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
+
+  const handleZipCodeChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const zip = formatZipCode(e.target.value);
+
+    setForm((prev) => ({
+      ...prev,
+      zipCode: zip,
+      address: "",
+      city: "",
+      state: "",
+      number: "",
+    }));
+
+    setZipLoaded(false);
+    setZipError("");
+
+    const cleanZip = zip.replace(/\D/g, "");
+
+    if (cleanZip.length < 8) return;
+
+    if (cleanZip.length > 8) {
+      setZipError("ZIP Code must have 8 digits");
+      return;
+    }
+
+    const address = await fetchAddressByZip(cleanZip);
+
+    if (!address) {
+      setZipError("Invalid ZIP Code");
+      return;
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      zipCode: zip,
+      address: address.address,
+      city: address.city,
+      state: address.state,
+    }));
+
+    setZipLoaded(true);
   };
 
   const handleClientCreation = async (e: SyntheticEvent<HTMLFormElement>) => {
@@ -33,6 +108,14 @@ export function NewClientPage() {
     setLoading(true);
 
     try {
+      const validationErrors = validateClientForm(form);
+
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        setLoading(false);
+        return;
+      }
+
       const now = new Date().toISOString();
 
       const client = {
@@ -77,8 +160,7 @@ export function NewClientPage() {
                 <h1 className="text-2xl font-semibold tracking-tight">New Client</h1>
 
                 <p className="text-muted-foreground text-sm">
-                  Add a new client to your database. Provide contact details and additional information to manage your
-                  relationships.
+                  Add a new client to your database. Provide personal and contact details to manage your relationships.
                 </p>
               </div>
             </div>
@@ -87,33 +169,28 @@ export function NewClientPage() {
               <div className="flex gap-4">
                 <div className="flex-1">
                   <InputField
-                    label="Name"
-                    name="name"
-                    placeholder="John Doe"
-                    value={form.name}
+                    label="First Name"
+                    name="firstName"
+                    placeholder="John"
+                    value={form.firstName}
                     onChange={handleChange}
                     required
                     type="text"
+                    errorMessage={errors.firstName}
                   />
                 </div>
 
                 <div className="flex-1">
-                  <div>
-                    <label className="text-foreground mb-1 block w-full text-left" htmlFor="status">
-                      Status
-                    </label>
-
-                    <select
-                      id="status"
-                      name="status"
-                      value={form.status}
-                      onChange={handleChange}
-                      className="shadow-border border-input text-foreground placeholder:text-placeholder focus:border-primary focus:ring-ring bg-card w-full appearance-none rounded border py-2 pl-2 leading-tight shadow-xs transition-all hover:cursor-pointer focus:ring focus:outline-none"
-                    >
-                      <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
-                    </select>
-                  </div>
+                  <InputField
+                    label="Last Name"
+                    name="lastName"
+                    placeholder="Doe"
+                    value={form.lastName}
+                    onChange={handleChange}
+                    required
+                    type="text"
+                    errorMessage={errors.lastName}
+                  />
                 </div>
               </div>
 
@@ -127,6 +204,7 @@ export function NewClientPage() {
                     onChange={handleChange}
                     required
                     type="email"
+                    errorMessage={errors.email}
                   />
                 </div>
 
@@ -134,37 +212,121 @@ export function NewClientPage() {
                   <InputField
                     label="Phone"
                     name="phone"
-                    placeholder="+55 12 99999-9999"
+                    placeholder="+55 11 99999-9999"
                     value={form.phone}
                     onChange={handleChange}
                     type="text"
+                    errorMessage={errors.phone}
                   />
                 </div>
               </div>
 
-              <InputField
-                label="Company"
-                name="company"
-                placeholder="Company name (optional)"
-                value={form.company}
-                onChange={handleChange}
-                type="text"
-              />
+              <div className="flex gap-4">
+                <div className="flex-1">
+                  <InputField
+                    label="Tax ID"
+                    name="taxId"
+                    placeholder="000.000.000-00"
+                    value={form.taxId}
+                    onChange={handleChange}
+                    required
+                    type="text"
+                    errorMessage={errors.taxId}
+                  />
+                </div>
+
+                <div className="flex-1">
+                  <InputField
+                    label="Birth Date"
+                    name="birthDate"
+                    value={form.birthDate}
+                    onChange={handleChange}
+                    required
+                    type="date"
+                    errorMessage={errors.birthDate}
+                  />
+                </div>
+              </div>
 
               <div>
-                <label className="text-foreground mb-1 block w-full text-left" htmlFor="notes">
-                  Notes
+                <label className="text-foreground mb-1 block w-full text-left" htmlFor="gender">
+                  Gender
                 </label>
 
-                <textarea
-                  id="notes"
-                  name="notes"
-                  rows={3}
-                  value={form.notes}
+                <select
+                  id="gender"
+                  name="gender"
+                  value={form.gender}
                   onChange={handleChange}
-                  placeholder="Additional notes about the client"
-                  className="shadow-border border-input text-foreground placeholder:text-placeholder focus:border-primary focus:ring-ring bg-card w-full appearance-none rounded border py-2 pl-2 leading-tight shadow-xs transition-all focus:ring focus:outline-none"
-                />
+                  className={`shadow-border border-input text-foreground ${errors.gender ? "border-red-500" : ""} focus:border-primary focus:ring-ring bg-card w-full appearance-none rounded border py-2 pl-2 leading-tight shadow-xs transition-all hover:cursor-pointer focus:ring focus:outline-none`}
+                >
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+                {errors.gender && <p className="mt-1 text-xs text-red-500">{errors.gender}</p>}
+              </div>
+
+              <InputField
+                label="Zip Code"
+                name="zipCode"
+                placeholder="00000-000"
+                value={form.zipCode}
+                onChange={handleZipCodeChange}
+                type="text"
+                errorMessage={zipError || errors.zipCode}
+              />
+
+              <InputField
+                label="Address"
+                name="address"
+                placeholder="Street"
+                value={form.address}
+                onChange={handleChange}
+                type="text"
+                disabled
+                errorMessage={errors.address}
+              />
+
+              <InputField
+                label="Number"
+                name="number"
+                placeholder="123"
+                value={form.number}
+                onChange={handleChange}
+                type="text"
+                disabled={!zipLoaded}
+                required={zipLoaded}
+                errorMessage={errors.number}
+              />
+
+              <div className="flex gap-4">
+                <div className="flex-1">
+                  <InputField
+                    label="City"
+                    name="city"
+                    placeholder="São Paulo"
+                    value={form.city}
+                    onChange={handleChange}
+                    type="text"
+                    disabled
+                    errorMessage={errors.city}
+                  />
+                </div>
+
+                <div className="flex-1">
+                  <InputField
+                    label="State"
+                    name="state"
+                    placeholder="SP"
+                    value={form.state}
+                    onChange={handleChange}
+                    type="text"
+                    disabled
+                    errorMessage={errors.state}
+                  />
+                </div>
               </div>
 
               <div className="border-border mt-12 flex w-full flex-col gap-2 border-t-2 pt-4 md:flex-row md:justify-end">
