@@ -1,3 +1,5 @@
+import { validateZipCode } from "@/modules/clients/validators/validateZipCode.ts";
+
 export function validateClientForm(form: {
   firstName: string;
   lastName: string;
@@ -67,8 +69,10 @@ export function validateClientForm(form: {
     errors.gender = "Gender is required";
   }
 
-  if (!form.zipCode || !form.address || !form.city || !form.state) {
-    errors.zipCode = "Please enter a valid ZIP Code";
+  const zipError = validateZipCode(form.zipCode, form.address, form.city, form.state);
+
+  if (zipError) {
+    errors.zipCode = zipError;
   }
 
   if (!form.number.trim()) {
