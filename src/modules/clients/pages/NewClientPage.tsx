@@ -31,7 +31,6 @@ export function NewClientPage() {
 
   const [loading, setLoading] = useState(false);
   const [zipLoaded, setZipLoaded] = useState(false);
-  const [zipError, setZipError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const { addToast } = useToast();
@@ -44,10 +43,6 @@ export function NewClientPage() {
 
     if (name === "taxId") {
       newValue = formatTaxId(value);
-    }
-
-    if (name === "zipCode") {
-      setZipError("");
     }
 
     setForm((prev) => ({
@@ -73,22 +68,29 @@ export function NewClientPage() {
       number: "",
     }));
 
-    setZipLoaded(false);
-    setZipError("");
-
     const cleanZip = zip.replace(/\D/g, "");
 
-    if (cleanZip.length < 8) return;
+    setZipLoaded(false);
+
+    if (cleanZip.length < 8) {
+      return;
+    }
 
     if (cleanZip.length > 8) {
-      setZipError("ZIP Code must have 8 digits");
+      setErrors((prev) => ({
+        ...prev,
+        zipCode: "ZIP Code must have 8 digits",
+      }));
       return;
     }
 
     const address = await fetchAddressByZip(cleanZip);
 
     if (!address) {
-      setZipError("Invalid ZIP Code");
+      setErrors((prev) => ({
+        ...prev,
+        zipCode: "Invalid ZIP Code",
+      }));
       return;
     }
 
@@ -101,6 +103,11 @@ export function NewClientPage() {
     }));
 
     setZipLoaded(true);
+
+    setErrors((prev) => ({
+      ...prev,
+      zipCode: "",
+    }));
   };
 
   const handleClientCreation = async (e: SyntheticEvent<HTMLFormElement>) => {
@@ -275,7 +282,7 @@ export function NewClientPage() {
                 value={form.zipCode}
                 onChange={handleZipCodeChange}
                 type="text"
-                errorMessage={zipError || errors.zipCode}
+                errorMessage={errors.zipCode}
               />
 
               <InputField
