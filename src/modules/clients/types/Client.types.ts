@@ -1,5 +1,5 @@
 export interface Client {
-  id?: string;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -14,4 +14,5 @@ export interface Client {
   number: string;
   createdAt: string;
   updatedAt: string;
+  [key: string]: string;
 }
