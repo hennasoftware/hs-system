@@ -1,5 +1,5 @@
 export interface Client {
-  id: string;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -11,7 +11,7 @@ export interface Client {
   state: string;
   address: string;
   zipCode: string;
+  number: string;
   createdAt: string;
   updatedAt: string;
-  [key: string]: string;
 }
